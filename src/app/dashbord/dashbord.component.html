@@ -1,4 +1,36 @@
 <p>dashbord works!</p>
-{{longinService.user.fisrtname}}
+<p *ngIf="longinService.user">{{longinService.user.fistname}}</p>
 
-<button (click)="doLogout()">Cerrar seción</button>
+<h2>Mis Usuario</h2>
+<ul>
+    <li *ngFor='let user of usuarios;index as i'>
+      <p >{{user.fisrtname}}  {{user.lastname}} </p> 
+    
+      <button (click)="editUser(user)">Editar</button>
+      <button (click)="deleteUser(user._id)">Eliminar</button>
+    
+    </li>
+  </ul>
+
+
+
+
+
+
+
+  <input type="text" placeholder="Escribe un nombre" [(ngModel)]="nuevo_usuario.fisrtname">
+  <input type="text" placeholder="Escribe un Apellido Paterno" [(ngModel)]="nuevo_usuario.lastname">
+  <input type="text" placeholder="fecha de nacimiento" [(ngModel)]="nuevo_usuario.email">
+  <input type="text" placeholder="Password" [(ngModel)]="nuevo_usuario. brith_date">
+  <input type="text" placeholder="Telefono" [(ngModel)]="nuevo_usuario.tel">
+  <select type="text"  [(ngModel)]="nuevo_usuario._role" placeholder="Seleccione un Rol">
+      <option *ngFor="let rol of roles" value="{{role._id}}" >{{rol.name}}</option>
+  </select>
+  <button (click)="actualizarUser()" *ngIf="nuevo_usuario._id">Actualizar</button> <br>
+  <button (click)="addUser()" *ngIf="!nuevo_usuario._id">Guardar</button> <br>
+  <br>
+
+
+
+
+<button (click)="doLogout()">Cerrar sesión</button>
