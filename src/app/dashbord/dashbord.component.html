@@ -20,13 +20,14 @@
 
   <input type="text" placeholder="Escribe un nombre" [(ngModel)]="nuevo_usuario.fisrtname">
   <input type="text" placeholder="Escribe un Apellido Paterno" [(ngModel)]="nuevo_usuario.lastname">
-  <input type="text" placeholder="fecha de nacimiento" [(ngModel)]="nuevo_usuario.email">
+  <input type="text" placeholder="email" [(ngModel)]="nuevo_usuario.email">
   <input type="text" placeholder="Password" [(ngModel)]="nuevo_usuario. brith_date">
   <input type="text" placeholder="Telefono" [(ngModel)]="nuevo_usuario.tel">
   <select type="text"  [(ngModel)]="nuevo_usuario._role" placeholder="Seleccione un Rol">
-      <option *ngFor="let rol of roles" value="{{role._id}}" >{{rol.name}}</option>
+      <option *ngFor="let rol of roles" value="{{rol._id}}" >{{rol.name}}</option>
   </select>
   <button (click)="actualizarUser()" *ngIf="nuevo_usuario._id">Actualizar</button> <br>
+  <button (click)="cancelUser()" *ngIf="nuevo_usuario._id">Cancelar</button> <br>
   <button (click)="addUser()" *ngIf="!nuevo_usuario._id">Guardar</button> <br>
   <br>
 

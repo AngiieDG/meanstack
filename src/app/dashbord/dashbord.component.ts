@@ -28,17 +28,15 @@ nuevo_usuario= new User();
             console.log(err)
         }
       )
-
-
     this.userService.getRoles().subscribe(
       (data)=>{
         this.roles= data;
-          console.log(data);
+          console.log(this.roles);
       },(err)=>{
           console.log(err)
       }
     )
-  }, 3000);
+  }, 100);
   }
 
 doLogout(){
@@ -82,6 +80,8 @@ actualizarUser(){
       if (data._id) {
         console.log('Usuario actualizado');
         this.nuevo_usuario = new User();
+        this.reloadView();
+
       }
 
     }, (err) => {
@@ -90,8 +90,18 @@ actualizarUser(){
     });
 
 }
+
+reloadView(): void{
+  this.usuarios.length = 0;
+  this.ngOnInit();
+} 
+cancelUser(){
+  console.log('Limpia datos');
+  this.nuevo_usuario = new User();
+}
 ////cambiar (actualización) => password 
 ///poner un boton cancelar / regresar a vacio y si actualiza se debe actualizar la lista después de actualizar el usuario 
 ///*******tema siguiente semana */
 ///RouteGuars/pipes
 }
+
