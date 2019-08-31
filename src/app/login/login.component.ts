@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,14 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 email:string='';
 password:string='';
+isLoading: Boolean;
+loginForm = new FormGroup({
+  email: new FormControl('',[Validators.required,Validators.email]),
+  password: new FormControl('',[Validators.required,Validators.minLength(5)]),
+});
+///
+color = 'primary';
+mode = 'indeterminate';
 
 
   constructor(
@@ -23,10 +32,11 @@ password:string='';
     console.log(token);
   }
 
+
   Login(){
-    if(this.email.length && this.password.length){
-      console.log('Los datos son'+ this.email +'-'+this.password);
-      this.loginService.doLogin(this.email,this.password).subscribe(
+    this.isLoading = true;
+     // console.log('Los datos son'+ this.email +'-'+this.password);
+      this.loginService.doLogin(this.loginForm.get('email').value,this.loginForm.get('password').value).subscribe(
         (data)=>{
               console.log(data);
               if(data.token){
@@ -37,18 +47,22 @@ password:string='';
                 this.loginService.token = data.token;
 
               }else{
-                alert('Error: usuario o password incorrecto')
+                alert('Error: usuario o password incorrecto');
+                this.isLoading= false;
+
               }
         },
        (err)=>{
         console.log(err);
+        this.isLoading= false;
         alert('Ocurrio un error con el servidor');
        } 
       )
 
-    }else{
-      alert('Debe completar los datos');
-    }
+  }
+  pruebas(){
+    console.log('pruebas')
+    console.log(this.loginForm.get('email'));
   }
 
   ngOnDestroy(){

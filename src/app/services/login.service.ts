@@ -3,7 +3,6 @@ import { HttpClient,HttpHeaders,HttpHeaderResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +16,9 @@ export class LoginService {
   ) { 
     console.log("Se carga el servico")
     var tok = localStorage.getItem('token');
+    this.token = tok;
+    /*
+    var tok = localStorage.getItem('token');
     if(tok){
     console.log('1');
   this.validate_token(tok).subscribe(
@@ -25,6 +27,7 @@ export class LoginService {
         console.log(data)
         this.user=data;
         this.token=tok;
+        this.router.navigate(['/dashbord']); 
         return true
       
     },(err)=>{
@@ -32,9 +35,10 @@ export class LoginService {
       return false;
     });
     }else{
-      this.doLogout();
+      //this.doLogout();
     }
-
+*/
+  
   }
   
 
@@ -43,10 +47,6 @@ setHeaders(){
   let reqoption = {headers:headers};
   return reqoption;
 }
-
-
-
-
   doLogin(email:string,password:string):Observable< any >{
     console.log(password,email);
     console.log('Hola');
@@ -101,10 +101,41 @@ _autoLogout() {
 }
 
 validate_token(token:string):Observable<any> {
+  /*
+  return new Promise((resolve,reject)=>{
+    
+  })*/
+
   let headers = new HttpHeaders ({'Authorization': token});
   let reqoption = {headers:headers};
   return this.http.post(`http://localhost:3000/api/v1/auth/validate-token`,{},reqoption)
 
 }
-  
+
+guardValidateToken(token:string):Promise<any>{
+  console.log(token);
+  return new Promise((resolve,reject)=>{
+    this.validate_token(token).subscribe(
+    data=>{
+      if(data){
+        resolve(data);
+      }error => {
+        reject(error);
+      }
+    });
+
+});
+
+
+
+
+}
+
+////TAREA
+
+// TAREA 1- AGREGAR LOS GUARD PARA EL NUEVO PROYECTO 
+//  guardar tooken y user data y el authguar debe responder a este servicio
+//Quitar el error del comienzo
+//cargar los usuarios en el nuevo proyecto
+ 
 }

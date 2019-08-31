@@ -1,27 +1,66 @@
-<p>dashbord works!</p>
-<p *ngIf="longinService.user">{{longinService.user.fistname}}</p>
 
-<h2>Mis Usuario</h2>
+<mat-toolbar>Mis usuarios registrados
+
+</mat-toolbar>
+<p *ngIf="longinService.user">{{longinService.user.fistname}}</p>
+<br><br>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" >
+<mat-card *ngFor='let user of usuarios;index as i' class="example-card">
+    <mat-card-header>
+        <mat-card-title>{{user.fisrtname}}  {{user.lastname}} </mat-card-title>
+        <mat-card-subtitle>{{user.brith_date|date:'h:mm a z'|mypipe}}</mat-card-subtitle>
+        <mat-card-actions>
+            <button (click)="editUser(user)"  mat-raised-button color="primary">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">create</mat-icon>Editar</button>
+            <button (click)="deleteUser(user._id)" mat-raised-button color="warn"> 
+              <mat-icon aria-hidden="false" aria-label="Example home icon">delete_forever</mat-icon>Eliminar</button>
+          </mat-card-actions>
+    </mat-card-header>
+  </mat-card>
+</div> 
+    <!---
 <ul>
     <li *ngFor='let user of usuarios;index as i'>
       <p >{{user.fisrtname}}  {{user.lastname}} </p> 
+      <p>{{user.brith_date|date:'h:mm a z'|mypipe}}</p>
     
-      <button (click)="editUser(user)">Editar</button>
-      <button (click)="deleteUser(user._id)">Eliminar</button>
-    
+      <button (click)="editUser(user)"  mat-raised-button color="primary"> 
+        <mat-icon aria-hidden="false" aria-label="Example home icon">create</mat-icon>Editar</button>
+      <button (click)="deleteUser(user._id)"  mat-raised-button color="warn"> <mat-icon aria-hidden="false" aria-label="Example home icon">delete_forever</mat-icon>Eliminar</button>
+  
     </li>
   </ul>
+   -->
 
+<br><br>
 
+    <mat-card class="example-card" >
+        <mat-card-header>
+          <mat-card-title>Nuevo Usuario</mat-card-title>
+          <mat-card-subtitle>Crea un nuevo usuario</mat-card-subtitle>
+        </mat-card-header>
+  <mat-card-content>
 
-
-
-
-
+      <form [formGroup]="userForm">
+          fisrtname :<input type="text" placeholder="Escribe tu nombre" formControlName='fisrtname' name="fisrtname" autocomplete="off"><br>
+          lastname:<input type="text" placeholder="Escribe tu Apellido"  formControlName='lastname' name="lastname" >
+          brith_date:<input type="text"  formControlName='brith_date' name="brith_date" >
+          Telefono:<input type="number"  formControlName='tel' name="tel" >
+          Email:<input type="email" placeholder="pruebas@domino.com" formControlName='email' name="email" autocomplete="off"><br>
+          Password:<input type="password" placeholder="Tu password"  formControlName='password' name="password" >
+          <select type="text"  formControlName="_role" placeholder="Seleccione un Rol">
+              <option *ngFor="let rol of roles" value="{{rol._id}}" >{{rol.name}}</option>
+          </select>
+      <button (click)="actualizarUser()" *ngIf="userForm._id">Actualizar</button> <br>
+      <button (click)="cancelUser()">Cancelar</button> <br>
+      <button (click)="addUser()" *ngIf="!userForm._id">Guardar</button> <br>
+      </form>
+   
+ <!--
   <input type="text" placeholder="Escribe un nombre" [(ngModel)]="nuevo_usuario.fisrtname">
   <input type="text" placeholder="Escribe un Apellido Paterno" [(ngModel)]="nuevo_usuario.lastname">
   <input type="text" placeholder="email" [(ngModel)]="nuevo_usuario.email">
-  <input type="text" placeholder="Password" [(ngModel)]="nuevo_usuario. brith_date">
+  <input type="text" placeholder="brith_date" [(ngModel)]="nuevo_usuario. brith_date">
   <input type="text" placeholder="Telefono" [(ngModel)]="nuevo_usuario.tel">
   <select type="text"  [(ngModel)]="nuevo_usuario._role" placeholder="Seleccione un Rol">
       <option *ngFor="let rol of roles" value="{{rol._id}}" >{{rol.name}}</option>
@@ -30,8 +69,12 @@
   <button (click)="cancelUser()" *ngIf="nuevo_usuario._id">Cancelar</button> <br>
   <button (click)="addUser()" *ngIf="!nuevo_usuario._id">Guardar</button> <br>
   <br>
+--->
+</mat-card-content>
+  </mat-card>
+  <br><br>
+  <button (click)="doLogout()">Cerrar sesión</button>    
 
 
 
-
-<button (click)="doLogout()">Cerrar sesión</button>
+   

@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {AuthGuard} from './auth.guard';
+import {PruebaGuard} from './prueba.guard';
+
 
 
 const routes: Routes = [{
@@ -7,7 +10,9 @@ const routes: Routes = [{
   loadChildren:'./login/login.module#LoginModule'
 },{
   path:'dashbord',
-  loadChildren:'./dashbord/dashbord.module#DashbordModule'
+  loadChildren:'./dashbord/dashbord.module#DashbordModule',
+  //Se importa en las rutas que desemos protejer 
+    canActivate: [AuthGuard]
 },
 
 
