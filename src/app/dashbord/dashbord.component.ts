@@ -3,7 +3,6 @@ import {LoginService} from '../services/login.service';
 import { UserService } from '../services/user.service';
 import {User} from '../models/user.model';
 import { FormGroup, FormControl,Validators } from '@angular/forms';
-import { from } from 'rxjs';
 
 
 @Component({
@@ -15,6 +14,8 @@ import { from } from 'rxjs';
 export class DashbordComponent implements OnInit {
 usuarios :  User[]=[];
 roles : any[];
+search_inmuebles : User[];
+inmueblesearch: String = '';
 //nuevo_usuario= new User();
 
 userForm = new FormGroup({
@@ -135,13 +136,15 @@ actualizarUser(){
     });
 
 }
+applyFilter(filterValue: string) {
 
+} 
 reloadView(): void{
   this.usuarios.length = 0;
   this.ngOnInit();
 } 
 cancelUser(){
-  console.log('Limpia datos');
+  //console.log('Limpia datos');
   this.userForm.reset();
 }
 ////cambiar (actualización) => password 
@@ -150,7 +153,25 @@ cancelUser(){
 ///RouteGuars/pipes
 
 
+ImuebleFiltered(){
+  setTimeout( () => {
 
+  //this._initialService();
+  //console.log(this._initialService());   
+   this.usuarios = this.search_inmuebles;
+   
+   if (!this.usuarios) {
+     console.log("NO HAY FRACCIONAMIENTOS CON ESE NOMBRE");
+
+     return [];
+   }
+   else {
+     return this.usuarios= this.usuarios.filter((el) => {
+       return (( el.fisrtname).toLowerCase().indexOf(this.inmueblesearch.toLowerCase()) !== -1)
+     });
+   }
+  }, 100);
+ }
 
 
 

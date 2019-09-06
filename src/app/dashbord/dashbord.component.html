@@ -1,11 +1,23 @@
 
-<mat-toolbar>Mis usuarios registrados
+<mat-toolbar></mat-toolbar>
+  <div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <div class="search-container">
+      <form action="/action_page.php">
+        <input type="text"  [(ngModel)]="inmueblesearch" (ionChange)="ImuebleFiltered()" placeholder="Search.." name="inmueblesearch">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </div>
 
-</mat-toolbar>
+
+<div >
+
 <p *ngIf="longinService.user">{{longinService.user.fistname}}</p>
+
 <br><br>
 <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between center" fxLayoutGap="10px" >
-<mat-card *ngFor='let user of usuarios;index as i' class="example-card">
+<mat-card *ngFor='let user of usuarios;index as i' >
     <mat-card-header>
         <mat-card-title>{{user.fisrtname}}  {{user.lastname}} </mat-card-title>
         <mat-card-subtitle>{{user.brith_date|date:'h:mm a z'|mypipe}}</mat-card-subtitle>
