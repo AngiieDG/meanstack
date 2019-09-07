@@ -3,9 +3,9 @@
   <div class="topnav">
     <a class="active" href="#home">Home</a>
     <div class="search-container">
-      <form action="/action_page.php">
-        <input type="text"  [(ngModel)]="inmueblesearch" (ionChange)="ImuebleFiltered()" placeholder="Search.." name="inmueblesearch">
-        <button type="submit"><i class="fa fa-search"></i></button>
+      <form >
+        <input type="search"  [(ngModel)]="search" (ionChange)="Filtered()" placeholder="Search.." name="search">
+        <button>Search</button>
       </form>
     </div>
   </div>
