@@ -14,8 +14,8 @@ import { FormGroup, FormControl,Validators } from '@angular/forms';
 export class DashbordComponent implements OnInit {
 usuarios :  User[]=[];
 roles : any[];
-search_inmuebles : User[];
-inmueblesearch: String = '';
+search : User[];
+usersearch: String = '';
 //nuevo_usuario= new User();
 
 userForm = new FormGroup({
@@ -158,16 +158,16 @@ ImuebleFiltered(){
 
   //this._initialService();
   //console.log(this._initialService());   
-   this.usuarios = this.search_inmuebles;
+   this.usuarios = this.search;
    
    if (!this.usuarios) {
-     console.log("NO HAY FRACCIONAMIENTOS CON ESE NOMBRE");
-
+     console.log("No existen datos ");
      return [];
    }
    else {
      return this.usuarios= this.usuarios.filter((el) => {
-       return (( el.fisrtname).toLowerCase().indexOf(this.inmueblesearch.toLowerCase()) !== -1)
+       console.log(el);
+       return (( el.fisrtname).toLowerCase().indexOf(this.usersearch.toLowerCase()) !== -1)
      });
    }
   }, 100);
